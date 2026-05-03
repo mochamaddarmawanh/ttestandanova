@@ -1,5 +1,6 @@
 import pandas as pd
 from scipy import stats
+import matplotlib.pyplot as plt
 
 file_csv_name = input("Masukkan nama csv file: ")
 df = pd.read_csv(file_csv_name)
@@ -58,5 +59,27 @@ print(df[df['metode_pembelajaran'] == 'online'])
 # --- Tampilkan tabel hybrid
 print("\n=== DATA HYBRID ===")
 print(df[df['metode_pembelajaran'] == 'hybrid'])
+
+# --- VISUALISASI DISTRIBUSI NILAI
+print("\n============= VISUALISASI DISTRIBUSI NILAI =============\n")
+
+# Hitung frekuensi tiap nilai
+offline_counts = offline.value_counts().sort_index()
+online_counts = online.value_counts().sort_index()
+hybrid_counts = hybrid.value_counts().sort_index()
+
+plt.figure()
+
+# Plot garis
+plt.plot(offline_counts.index, offline_counts.values, marker='o', label='Offline')
+plt.plot(online_counts.index, online_counts.values, marker='o', label='Online')
+plt.plot(hybrid_counts.index, hybrid_counts.values, marker='o', label='Hybrid')
+
+plt.xlabel('Nilai')
+plt.ylabel('Jumlah Siswa')
+plt.title('Distribusi Nilai (Line Plot)')
+plt.legend()
+
+plt.show()
 
 print("\n============= SELESAI =============\n")
